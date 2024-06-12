@@ -1,0 +1,141 @@
+#linear regression model
+
+# Importing libraries 
+import numpy as np 
+import pandas as pd 
+from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import LinearRegression, Lasso
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error 
+import matplotlib.pyplot as plt
+
+x_train,y_train,x_Val,y_Val=(X,y, ...) # others columns=x,length_of stay=y
+
+
+
+bed_occupied_model = LinearRegression()
+bed_occupied_model.fit(x_train, y_train)
+length_of_stay_predict = bed_occupied_model.predict(x_test)
+
+# Plot training and prediction data
+plt.scatter(x_train,y_train,color='blue')
+plt.plot(x_test,length_of_stay_predict,color='red')
+plt.title("Trained model plot")
+plt.plot
+
+
+# Calculate Mean Squared Error
+mse = mean_squared_error(y_test, y_pred)
+print(f"Mean Squared Error: {mse}")
+
+# Calculate R^2 score
+r2 = bed_occupied_model.score(X_test, y_test)
+print(f"R^2 Score: {r2}")
+
+# Get the coefficients
+coefficients = pd.Series(bed_occupied_model.coef_, index=X.columns)
+print(coefficients)
+
+
+
+print("Train accuracy:", round(bed_occupied_model.score(x_train, y_train)*100,2), "%")
+print("Test accuracy:", round(bed_occupied_model.score(x_test, y_test)*100,2), "%")
+------------------------------------------------------------------------------------------------------------------------------
+ 
+# Model training  Lasso
+# Initialize the Lasso regression model with a regularization parameter alpha
+lasso_model = Lasso(alpha=1.0)
+
+# Fit the model to the training data
+lasso_model.fit(X_train, y_train)
+  
+# Prediction on test set 
+Y_pred = lasso_model.predict(X_test) 
+  
+# Calculate Mean Squared Error
+mse = mean_squared_error(y_test, y_pred)
+print(f"Mean Squared Error: {mse}")
+
+# Calculate R^2 score
+r2 = lasso_model.score(X_test, y_test)
+print(f"R^2 Score: {r2}")
+
+# Get the coefficients
+coefficients = pd.Series(lasso_model.coef_, index=X.columns)
+print(coefficients)
+
+# Plot the coefficients
+plt.figure(figsize=(10, 6))
+coefficients.sort_values().plot(kind='barh')
+plt.title('Lasso Regression Coefficients')
+plt.show()
+
+# Visualization on test set 
+plt.scatter(X_test, Y_test, color='blue', label='Actual Data') 
+plt.plot(X_test, Y_pred, color='orange', label='Lasso Regression Line') 
+plt.legend() 
+plt.show()
+
+
+----------------------------
+
+# Initialize the Ridge regression model with a regularization parameter alpha
+ridge_model = Ridge(alpha=1.0)
+
+# Fit the model to the training data
+ridge_model.fit(X_train, y_train)
+
+# Prediction on test set 
+y_pred = ridge_model.predict(X_test)
+
+# Calculate Mean Squared Error
+mse = mean_squared_error(y_test, y_pred)
+print(f"Mean Squared Error: {mse}")
+
+# Calculate R^2 score
+r2 = ridge_model.score(X_test, y_test)
+print(f"R^2 Score: {r2}"
+
+# Get the coefficients
+coefficients = pd.Series(ridge_model.coef_, index=X.columns)
+print(coefficients)
+
+# Plot the coefficients
+plt.figure(figsize=(10, 6))
+coefficients.sort_values().plot(kind='barh')
+plt.title('Ridge Regression Coefficients')
+plt.show()
+
+
+------------------------------
+-------------------------------
+---------------------------
+
+# Try different alpha values for fine tuning the model
+alphas = [0.1, 0.5, 1.0, 5.0, 10.0]
+for alpha in alphas:
+    ridge = Ridge(alpha=alpha)
+    ridge.fit(X_train, y_train)
+    y_pred = ridge.predict(X_test)
+    mse = mean_squared_error(y_test, y_pred)
+    r2 = ridge.score(X_test, y_test)
+    print(f"Alpha: {alpha} - MSE: {mse}, R^2: {r2}")
+
+increase performance then  bias induced
+
+---------------------------------
+Bias and variance
+# Define Algorithm 
+eg: tree = DecisionTreeClassifier(random_state=123)
+
+# Get Bias and Variance - bias_variance_decomp function
+avg_expected_loss, avg_bias, avg_var = bias_variance_decomp(
+tree, X_train_ds, y_train_ds, X_test_ds, y_test_ds, 
+loss='0-1_loss',
+random_seed=123,
+num_rounds=1000)
+# Display Bias and Variance
+print(f'Average Expected Loss: {round(avg_expected_loss, 4)}n')
+print(f'Average Bias: {round(avg_bias, 4)}')
+print(f'Average Variance: {round(avg_var, 4)}'
+ 
